@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔬 Lab Virtual Panca Indera</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <!-- ================= HEADER ================= -->
+  <header class="lab-header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <span class="logo-icon">🔬</span>
+        <div>
+          <h1 class="logo-title">Lab Panca Indera</h1>
+          <p class="logo-sub">Virtual Science Lab untuk SD</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= NAVIGATION ================= -->
+  <nav class="sense-nav">
+    <button class="sense-tab active" onclick="switchSense('mata')">
+      👁️ Mata
+    </button>
+    <button class="sense-tab" onclick="switchSense('hidung')">
+      👃 Hidung
+    </button>
+    <button class="sense-tab" onclick="switchSense('lidah')">👅 Lidah</button>
+    <button class="sense-tab" onclick="switchSense('kulit')">✋ Kulit</button>
+    <button class="sense-tab" onclick="switchSense('telinga')">
+      👂 Telinga
+    </button>
+  </nav>
+
+  <main class="lab-main">
+    <!-- ================= MATA ================= -->
+    <section id="sense-mata" class="sense-panel active">
+      <div class="panel-header">
+        <h2 class="panel-title">👁️ Indera Penglihatan — Mata</h2>
+        <p class="panel-desc">
+          Klik bagian mata untuk belajar struktur dan fungsinya!
+        </p>
+      </div>
+
+      <div class="lab-workspace">
+        <!-- ===== SIMULASI MATA ===== -->
+        <div class="sim-area">
+          <div class="eye-scene">
+            <div class="scene-bg" id="scene-bg">
+              <div id="eye-overlay"
+                style="position:absolute; width:100%; height:100%; top:0; left:0; z-index:5; pointer-events:none; transition: all 0.5s;">
+              </div>
+              <div class="scene-objects" id="distant-objects" style="transition: filter 0.3s;">
+                <span class="scene-obj" style="font-size: 3rem; top: 20%; left: 15%">🦋</span>
+                <span class="scene-obj" style="font-size: 2.5rem; top: 50%; left: 60%">🌸</span>
+                <span class="scene-obj" style="font-size: 2rem; top: 30%; left: 70%">🐝</span>
+                <span class="scene-obj" style="font-size: 3.5rem; top: 60%; left: 25%">🌻</span>
+              </div>
+
+              <!-- Objek Jarak Dekat (Foreground) -->
+              <div class="foreground-objects" id="near-objects"
+                style="position:absolute; bottom:8%; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.95); padding:15px 30px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.3); text-align:center; z-index:4; transition:filter 0.3s, transform 0.3s; border: 3px solid #ff9f43; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span
+                  style="font-size: 3.5rem; line-height: 1; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));">🖐️</span>
+                <strong style="font-size:1.1rem; color:#2d3748; margin-top: 5px;">Tangan Kita</strong>
+                <span style="font-size:0.8rem; color:#718096;">(Jarak Dekat)</span>
+              </div>
+
+              <!-- Kelopak Mata FPV -->
+              <div class="eyelid-top" id="eyelid-top"
+                style="position:absolute; top:0; left:0; width:100%; height:50%; background:#fbc2a9; transform-origin:top; z-index:20; transform:scaleY(0); border-bottom:6px solid #e6a182; transition:transform 0.15s ease-in-out; border-radius: 0 0 50% 50%;">
+              </div>
+              <div class="eyelid-bottom" id="eyelid-bottom"
+                style="position:absolute; bottom:0; left:0; width:100%; height:50%; background:#fbc2a9; transform-origin:bottom; z-index:20; transform:scaleY(0); border-top:6px solid #e6a182; transition:transform 0.15s ease-in-out; border-radius: 50% 50% 0 0;">
+              </div>
+
+              <div class="water-drops" id="water-drops"
+                style="position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none; z-index:15;">
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== STRUKTUR MATA ===== -->
+          <div class="eye-anatomy-panel">
+            <h3>🔍 Anatomi Mata (Klik untuk Belajar!)</h3>
+
+            <div class="eye-side-diagram"
+              style="display:flex; justify-content:center; align-items:center; padding: 25px 0;">
+              <svg width="350" height="220" viewBox="0 0 350 220" xmlns="http://www.w3.org/2000/svg"
+                style="filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); background: rgba(255,255,255,0.4); border-radius: 20px; padding: 10px;">
+
+                <!-- Otot Mata -->
+                <path d="M 120 40 L 40 15 M 120 180 L 40 205" stroke="#ff7675" stroke-width="12" stroke-linecap="round"
+                  opacity="0.6" />
+
+                <!-- Saraf Optik (Belakang) -->
+                <path id="svg-saraf" d="M 60 110 C 20 110, 10 130, -10 130" fill="none" stroke="#feca57"
+                  stroke-width="25" stroke-linecap="round" class="clickable-path" onclick="showEyePart('saraf')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Sklera (Bola Mata Utama) -->
+                <circle cx="160" cy="110" r="80" fill="#ffffff" stroke="#dfe6e9" stroke-width="6" class="clickable-path"
+                  onclick="showEyePart('sklera')" style="cursor:pointer;" />
+
+                <!-- Retina (Dinding Belakang) -->
+                <path id="svg-retina" d="M 130 35 A 75 75 0 0 0 130 185" fill="none" stroke="#ff6b6b" stroke-width="8"
+                  stroke-linecap="round" class="clickable-path" onclick="showEyePart('retina')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Lensa -->
+                <ellipse id="svg-lensa" cx="210" cy="110" rx="14" ry="32" fill="#74b9ff" stroke="#0984e3"
+                  stroke-width="3" opacity="0.8" class="clickable-path" onclick="showEyePart('lensa')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Cairan Mata (Vitreous Humor) -->
+                <circle cx="155" cy="110" r="70" fill="#81ecec" opacity="0.2" style="pointer-events:none;" />
+
+                <!-- Kornea (Cembungan Depan) -->
+                <path id="svg-kornea" d="M 230 50 A 65 65 0 0 1 230 170" fill="#e3f2fd" stroke="#74b9ff"
+                  stroke-width="6" stroke-linecap="round" opacity="0.7" class="clickable-path"
+                  onclick="showEyePart('kornea')" style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Iris (Atas & Bawah) -->
+                <path id="svg-iris" d="M 225 60 L 225 85 M 225 160 L 225 135" stroke="#10ac84" stroke-width="12"
+                  stroke-linecap="round" class="clickable-path" onclick="showEyePart('iris')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Pupil (Celah Transparan) -->
+                <line id="svg-pupil" x1="225" y1="85" x2="225" y2="135" stroke="rgba(0,0,0,0)" stroke-width="15"
+                  class="clickable-path" onclick="showEyePart('pupil')" style="cursor:pointer;" />
+                <line x1="225" y1="90" x2="225" y2="130" stroke="#ff9f43" stroke-width="3" stroke-dasharray="3,3"
+                  style="pointer-events:none; opacity:0.8;" />
+
+                <!-- Label Teks -->
+                <text x="30" y="25" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Belakang
+                  (Otak)</text>
+                <text x="250" y="25" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Depan
+                  (Luar)</text>
+
+                <!-- Panah Masuk Cahaya -->
+                <path d="M 320 110 L 250 110 M 265 95 L 250 110 L 265 125" fill="none" stroke="#ffeaa7" stroke-width="4"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <text x="325" y="115" font-size="12" fill="#d63031" font-weight="bold">Cahaya</text>
+              </svg>
+            </div>
+
+            <div class="eye-part-info" id="eye-part-info">
+              Klik bagian mata untuk melihat penjelasannya.
+            </div>
+          </div>
+
+          <!-- ===== KONDISI MATA ===== -->
+          <div class="condition-btns">
+            <button id="btn-normal" class="cond-btn active" onclick="setEyeCondition('normal')">
+              ☀️ Normal
+            </button>
+            <button id="btn-air" class="cond-btn" onclick="setEyeCondition('air')">
+              💧 Kena Air
+            </button>
+            <button id="btn-gelap" class="cond-btn" onclick="setEyeCondition('gelap')">
+              🌙 Malam Hari
+            </button>
+          </div>
+        </div>
+
+        <!-- ===== KONTROL ===== -->
+        <div class="eye-controls">
+          <h3>🎛️ Atur Kondisi Mata</h3>
+
+          <div class="control-group">
+            <label>🕒 Waktu Malam: <span id="night-value">18</span>:00</label>
+            <input type="range" min="18" max="24" value="18" id="night-slider" oninput="updateEyeVision()" />
+          </div>
+
+          <div class="control-group">
+            <label>💧 Jumlah Air Mata: <span id="water-value">0</span>%</label>
+            <input type="range" min="0" max="100" value="0" id="water-slider" oninput="updateEyeVision()" />
+          </div>
+
+          <div class="control-group">
+            <label>☀️ Intensitas Cahaya: <span id="light-value">100</span>%</label>
+            <input type="range" min="0" max="100" value="100" id="light-slider" oninput="updateEyeVision()" />
+          </div>
+
+          <div class="control-group">
+            <label>👓 Minus (Rabun Jauh): <span id="minus-value">0</span>%</label>
+            <input type="range" min="0" max="100" value="0" id="minus-slider" oninput="updateEyeVision()" />
+          </div>
+
+          <div class="control-group">
+            <label>📖 Plus (Rabun Dekat): <span id="plus-value">0</span>%</label>
+            <input type="range" min="0" max="100" value="0" id="plus-slider" oninput="updateEyeVision()" />
+          </div>
+
+          <div class="control-group">
+            <label>🌪️ Silinder (Astigmatisme): <span id="silinder-value">0</span>%</label>
+            <input type="range" min="0" max="100" value="0" id="silinder-slider" oninput="updateEyeVision()" />
+          </div>
+        </div>
+
+        <!-- ===== INFO PANEL ===== -->
+        <div class="info-panel">
+          <div class="info-badge" id="mata-badge">☀️ Kondisi Normal</div>
+
+          <div class="info-box">
+            <h3 class="info-title">🔍 Apa yang Terjadi?</h3>
+            <p id="mata-text">
+              Dalam kondisi normal, mata melihat dengan jelas dan cahaya masuk
+              melalui pupil.
+            </p>
+          </div>
+
+          <div class="fact-box">
+            <span class="fact-icon">💡</span>
+            <p id="mata-fact">Mata berkedip sekitar 15–20 kali per menit.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== VIDEO MATA ===== -->
+      <div class="video-section video-mata">
+        <div class="video-section-header">
+          <span class="video-badge">🎬 Video Ilustrasi</span>
+          <h3 class="video-title">Proses Saraf Penglihatan Mata</h3>
+          <p class="video-desc">
+            Tonton bagaimana cahaya diubah menjadi sinyal saraf dan dikirim ke
+            otak untuk membentuk gambar!
+          </p>
+        </div>
+
+        <div class="video-wrapper">
+          <video controls class="sense-video-player">
+            <source src="video/mata.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <div class="video-caption">
+          <span class="caption-icon">🧠</span>
+          <span>Cahaya → Kornea → Lensa → Retina → Saraf Optik → Otak</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HIDUNG ==================== -->
+    <section id="sense-hidung" class="sense-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">👃 Indera Penciuman — Hidung</h2>
+        <p class="panel-desc">
+          Hidung kita bisa mencium bau dan bereaksi terhadap rangsangan. Ayo
+          coba!
+        </p>
+      </div>
+      <div class="lab-workspace">
+        <div class="sim-area">
+          <!-- Hidung Scene -->
+          <div class="nose-scene">
+            <div class="nose-character" id="nose-char">
+              <div class="character-face" id="char-face">
+                <div class="char-eyes">
+                  <div class="char-eye left" id="eye-l"></div>
+                  <div class="char-eye right" id="eye-r"></div>
+                </div>
+                <div class="char-nose-big" id="char-nose">
+                  <svg width="90" height="100" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5 C45 30 40 60 25 80 C10 100 35 115 50 110 C65 115 90 100 75 80 C60 60 55 30 50 5 Z"
+                      fill="#ffeaa7" stroke="#fdcb6e" stroke-width="6" stroke-linejoin="round" />
+                    <ellipse cx="30" cy="95" rx="8" ry="5" fill="#2d3748" transform="rotate(-15 30 95)" />
+                    <ellipse cx="70" cy="95" rx="8" ry="5" fill="#2d3748" transform="rotate(15 70 95)" />
+                    <path d="M15 80 C5 105 25 115 36 102" stroke="#fdcb6e" stroke-width="6" stroke-linecap="round"
+                      fill="none" />
+                    <path d="M85 80 C95 105 75 115 64 102" stroke="#fdcb6e" stroke-width="6" stroke-linecap="round"
+                      fill="none" />
+                    <path d="M48 15 C48 45 44 65 44 75" stroke="white" stroke-width="8" stroke-linecap="round"
+                      opacity="0.8" />
+                  </svg>
+                </div>
+                <div class="char-mouth" id="char-mouth">😊</div>
+              </div>
+              <div class="char-body">🧒</div>
+            </div>
+
+            <!-- Benda-benda -->
+            <div class="smell-objects">
+              <button class="smell-obj" onclick="triggerSmell('bunga')" title="Bunga">
+                <span class="smell-icon">🌺</span>
+                <span class="smell-name">Bunga Harum</span>
+              </button>
+              <button class="smell-obj" onclick="triggerSmell('bulu')" title="Bulu">
+                <span class="smell-icon">🪶</span>
+                <span class="smell-name">Bulu Debu</span>
+              </button>
+              <button class="smell-obj" onclick="triggerSmell('makanan')" title="Makanan">
+                <span class="smell-icon">🍕</span>
+                <span class="smell-name">Makanan Yummy</span>
+              </button>
+              <button class="smell-obj" onclick="triggerSmell('busuk')" title="Busuk">
+                <span class="smell-icon">🗑️</span>
+                <span class="smell-name">Bau Tidak Enak</span>
+              </button>
+            </div>
+
+            <!-- Partikel bau -->
+            <div class="smell-particles" id="smell-particles"></div>
+          </div>
+
+          <!-- ===== STRUKTUR HIDUNG ===== -->
+          <div class="eye-anatomy-panel" style="margin-top: 20px;">
+            <h3>🔍 Anatomi Hidung (Klik untuk Belajar!)</h3>
+            <div class="eye-side-diagram"
+              style="display:flex; justify-content:center; align-items:center; padding: 25px 0;">
+              <svg width="350" height="220" viewBox="0 0 350 220" xmlns="http://www.w3.org/2000/svg"
+                style="filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); background: rgba(255,255,255,0.4); border-radius: 20px; padding: 10px;">
+
+                <!-- Profil Wajah (Latar) -->
+                <path d="M 120 10 Q 140 30, 150 60 Q 220 100, 200 160 Q 180 170, 150 160 Q 150 190, 120 200" fill="none"
+                  stroke="#ffeaa7" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" />
+
+                <!-- Rongga Hidung -->
+                <path d="M 130 90 Q 180 90, 170 140 Q 150 150, 130 140 Q 100 120, 130 90" fill="#ffb8b8"
+                  stroke="#ff7675" stroke-width="4" class="clickable-path" onclick="showNosePart('rongga')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Lubang Hidung -->
+                <ellipse cx="185" cy="155" rx="15" ry="8" fill="#2d3748" transform="rotate(-20 185 155)"
+                  class="clickable-path" onclick="showNosePart('lubang')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <!-- Bulu Hidung -->
+                <path d="M 175 150 L 180 140 M 185 152 L 190 142 M 195 155 L 200 145" stroke="#2d3748" stroke-width="2"
+                  stroke-linecap="round" />
+
+                <!-- Selaput Lendir (Mukus) -->
+                <path d="M 130 140 Q 150 150, 170 140" fill="none" stroke="#81ecec" stroke-width="10"
+                  stroke-linecap="round" opacity="0.8" class="clickable-path" onclick="showNosePart('lendir')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Saraf Pembau (Olfaktori) -->
+                <path d="M 130 90 Q 150 70, 170 90" fill="none" stroke="#feca57" stroke-width="12"
+                  stroke-linecap="round" class="clickable-path" onclick="showNosePart('saraf')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <path d="M 140 85 L 140 105 M 150 80 L 150 105 M 160 85 L 160 105" stroke="#feca57" stroke-width="4"
+                  stroke-linecap="round" />
+
+                <!-- Label Teks -->
+                <text x="30" y="25" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Dalam
+                  (Otak)</text>
+                <text x="250" y="25" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Luar
+                  (Udara)</text>
+
+                <!-- Panah Masuk Udara -->
+                <path d="M 260 180 L 200 160 M 215 150 L 200 160 L 205 175" fill="none" stroke="#74b9ff"
+                  stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                <text x="265" y="185" font-size="12" fill="#0984e3" font-weight="bold">Udara</text>
+              </svg>
+            </div>
+            <div class="eye-part-info" id="nose-part-info"
+              style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.8); border-radius: 8px; font-weight: bold; color: var(--secondary);">
+              Klik bagian hidung di atas untuk melihat penjelasannya.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="info-panel">
+          <div class="info-badge" id="hidung-badge">
+            👃 Sentuh objek untuk dicoba!
+          </div>
+          <div class="info-box" id="hidung-info">
+            <h3 class="info-title">🔍 Cara Kerja Hidung</h3>
+            <p id="hidung-text">
+              Pilih salah satu objek di sebelah kiri untuk melihat bagaimana
+              hidung bereaksi terhadap berbagai rangsangan bau!
+            </p>
+          </div>
+          <div class="fact-box">
+            <span class="fact-icon">💡</span>
+            <p id="hidung-fact">
+              Manusia bisa mencium lebih dari 1 triliun bau yang berbeda!
+              Hidung kita sangat hebat!
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Video Ilustrasi Proses Saraf Hidung -->
+      <div class="video-section">
+        <div class="video-section-header">
+          <span class="video-badge">🎬 Video Ilustrasi</span>
+          <h3 class="video-title">Proses Saraf Penciuman Hidung</h3>
+          <p class="video-desc">
+            Tonton bagaimana sinyal bau dikirimkan dari reseptor hidung ke
+            otak melalui saraf olfaktori!
+          </p>
+        </div>
+        <div class="video-wrapper">
+          <video controls class="sense-video-player" poster="">
+            <source src="video/hidung.mp4" type="video/mp4" />
+            <p>
+              Browser kamu tidak mendukung pemutaran video. Silakan perbarui
+              browser-mu.
+            </p>
+          </video>
+        </div>
+        <div class="video-caption">
+          <span class="caption-icon">🧠</span>
+          <span>Molekul bau → Reseptor hidung → Saraf Olfaktori → Otak → Kita
+            mencium baunya!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LIDAH ==================== -->
+    <section id="sense-lidah" class="sense-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">👅 Indera Perasa — Lidah</h2>
+        <p class="panel-desc">
+          Lidah kita punya banyak bagian yang merasakan rasa berbeda! Coba
+          klik makanannya!
+        </p>
+      </div>
+      <div class="lab-workspace">
+        <div class="sim-area">
+          <div class="tongue-scene">
+            <!-- Gambar Lidah Jelas (SVG) -->
+            <div class="taste-face" id="taste-face"
+              style="display: flex; flex-direction: column; align-items: center; position: relative; background: transparent; border: none; box-shadow: none; width: auto; height: auto;">
+              <svg width="200" height="250" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" id="tongue-svg"
+                style="filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); z-index: 2; transition: transform 0.3s;">
+                <path d="M50 10 C50 10, 20 150, 40 200 C60 250, 140 250, 160 200 C180 150, 150 10, 150 10 Z"
+                  fill="#ff9ff3" stroke="#f368e0" stroke-width="8" />
+                <path d="M100 20 Q100 150 100 220" stroke="#f368e0" stroke-width="6" stroke-linecap="round" fill="none"
+                  opacity="0.4" />
+
+                <path class="taste-zone back" data-zone="pahit" d="M60 40 Q100 70 140 40 Q100 60 60 40" fill="#10ac84"
+                  opacity="0.3" />
+                <path class="taste-zone middle" data-zone="asam" d="M45 80 Q35 140 55 170 Q70 140 65 80 Z"
+                  fill="#feca57" opacity="0.3" />
+                <path class="taste-zone middle" data-zone="asam" d="M155 80 Q165 140 145 170 Q130 140 135 80 Z"
+                  fill="#feca57" opacity="0.3" />
+                <path class="taste-zone side-l" data-zone="asin" d="M55 175 Q75 220 95 230 Q80 190 65 170 Z"
+                  fill="#54a0ff" opacity="0.3" />
+                <path class="taste-zone side-r" data-zone="asin" d="M145 175 Q125 220 105 230 Q120 190 135 170 Z"
+                  fill="#54a0ff" opacity="0.3" />
+                <path class="taste-zone tip" data-zone="manis" d="M90 230 Q100 245 110 230 Q100 220 90 230 Z"
+                  fill="#ff6b6b" opacity="0.3" />
+              </svg>
+              <div class="face-expression" id="face-expression"
+                style="font-size: 3rem; margin-top: 15px; background: rgba(255,255,255,0.9); padding: 5px 30px; border-radius: 30px; box-shadow: 0 8px 15px rgba(0,0,0,0.1);">
+                Pilih Rasa!</div>
+            </div>
+
+            <!-- Pilihan makanan -->
+            <div class="food-choices">
+              <button class="food-btn" onclick="tastFood('pedas')" id="food-pedas">
+                <span class="food-emoji">🌶️</span>
+                <span class="food-label">Pedas</span>
+              </button>
+              <button class="food-btn" onclick="tastFood('manis')" id="food-manis">
+                <span class="food-emoji">🍭</span>
+                <span class="food-label">Manis</span>
+              </button>
+              <button class="food-btn" onclick="tastFood('asin')" id="food-asin">
+                <span class="food-emoji">🧂</span>
+                <span class="food-label">Asin</span>
+              </button>
+              <button class="food-btn" onclick="tastFood('asam')" id="food-asam">
+                <span class="food-emoji">🍋</span>
+                <span class="food-label">Asam</span>
+              </button>
+              <button class="food-btn" onclick="tastFood('pahit')" id="food-pahit">
+                <span class="food-emoji">☕</span>
+                <span class="food-label">Pahit</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== STRUKTUR LIDAH ===== -->
+          <div class="eye-anatomy-panel" style="margin-top: 20px;">
+            <h3>🔍 Anatomi Permukaan Lidah (Klik untuk Belajar!)</h3>
+            <div class="eye-side-diagram"
+              style="display:flex; justify-content:center; align-items:center; padding: 25px 0;">
+              <svg width="350" height="220" viewBox="0 0 350 220" xmlns="http://www.w3.org/2000/svg"
+                style="filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); background: rgba(255,255,255,0.4); border-radius: 20px; padding: 10px;">
+
+                <!-- Daging Lidah -->
+                <path d="M 20 180 L 330 180 L 330 100 Q 175 80, 20 100 Z" fill="#ffb8b8" opacity="0.6" />
+
+                <!-- Saraf Pengecap (Gustatori) -->
+                <path d="M 60 180 L 60 140 M 130 180 L 130 140 M 200 180 L 200 140 M 270 180 L 270 140" stroke="#feca57"
+                  stroke-width="8" stroke-linecap="round" class="clickable-path" onclick="showTonguePart('saraf')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <path d="M 20 180 L 330 180" stroke="#feca57" stroke-width="12" stroke-linecap="round" />
+
+                <!-- Papila (Bintil) -->
+                <path
+                  d="M 30 100 Q 60 40, 90 100 M 100 100 Q 130 40, 160 100 M 170 100 Q 200 40, 230 100 M 240 100 Q 270 40, 300 100"
+                  fill="#ff7675" stroke="#d63031" stroke-width="6" class="clickable-path"
+                  onclick="showTonguePart('papila')" style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Kuncup Pengecap (Taste Buds) -->
+                <circle cx="45" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="75" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="115" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="145" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="185" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="215" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="255" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="285" cy="80" r="5" fill="#ffeaa7" class="clickable-path" onclick="showTonguePart('kuncup')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Label Teks -->
+                <text x="20" y="25" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Permukaan
+                  (Luar)</text>
+                <text x="220" y="205" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Ke
+                  Otak</text>
+              </svg>
+            </div>
+            <div class="eye-part-info" id="tongue-part-info"
+              style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.8); border-radius: 8px; font-weight: bold; color: var(--secondary);">
+              Klik bagian lidah di atas untuk melihat penjelasannya.
+            </div>
+          </div>
+
+        </div>
+
+        <div class="info-panel">
+          <div class="info-badge" id="lidah-badge">
+            👅 Pilih makanan untuk dicicipi!
+          </div>
+          <div class="info-box">
+            <h3 class="info-title">🔍 Peta Rasa Lidah</h3>
+            <p id="lidah-text">
+              Klik makanan di sebelah kiri untuk melihat bagian lidah mana
+              yang merasakan rasa tersebut! Setiap bagian lidah punya tugas
+              berbeda.
+            </p>
+          </div>
+          <div class="tongue-legend">
+            <div class="legend-item">
+              <span class="legend-dot manis"></span> Ujung = Manis
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot asin"></span> Samping = Asin/Gurih
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot asam"></span> Tengah = Asam
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot pahit"></span> Belakang = Pahit
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Video Ilustrasi Proses Saraf Lidah -->
+      <div class="video-section video-lidah">
+        <div class="video-section-header">
+          <span class="video-badge">🎬 Video Ilustrasi</span>
+          <h3 class="video-title">Proses Saraf Perasa Lidah</h3>
+          <p class="video-desc">
+            Tonton bagaimana kuncup pengecap di lidah mengirimkan sinyal rasa
+            ke otak!
+          </p>
+        </div>
+        <div class="video-wrapper">
+          <video controls class="sense-video-player">
+            <source src="video/lidah.mp4" type="video/mp4" />
+            <p>
+              Browser kamu tidak mendukung pemutaran video. Silakan perbarui
+              browser-mu.
+            </p>
+          </video>
+        </div>
+        <div class="video-caption">
+          <span class="caption-icon">🧠</span>
+          <span>Makanan → Kuncup Pengecap → Saraf Gustatori → Otak → Kita
+            merasakan rasanya!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== KULIT ==================== -->
+    <section id="sense-kulit" class="sense-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">✋ Indera Peraba — Kulit</h2>
+        <p class="panel-desc">
+          Kulit kita bisa merasakan berbagai tekstur! Hover atau klik untuk
+          merasakan!
+        </p>
+      </div>
+      <div class="lab-workspace">
+        <div class="sim-area">
+          <div class="touch-scene">
+            <!-- Tangan Animasi SVG -->
+            <div class="hand-display">
+              <div class="hand-emoji" id="hand-emoji" style="font-size:0; display:flex; justify-content:center;">
+                <svg width="120" height="130" viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg"
+                  style="filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15)); margin-top: -15px;">
+                  <!-- Jari-jari dan Telapak (Stroke & Fill) -->
+                  <g fill="#ffccb6" stroke="#d35400" stroke-width="4" stroke-linejoin="round">
+                    <rect x="25" y="50" width="63" height="60" rx="15" />
+                    <rect x="85" y="55" width="18" height="35" rx="9" transform="rotate(40 85 55)" />
+                    <rect x="25" y="20" width="15" height="40" rx="7.5" />
+                    <rect x="41" y="8" width="15" height="50" rx="7.5" />
+                    <rect x="57" y="20" width="15" height="40" rx="7.5" />
+                    <rect x="73" y="32" width="15" height="30" rx="7.5" />
+                  </g>
+                  <!-- Penutup Garis Sambungan -->
+                  <g fill="#ffccb6">
+                    <rect x="27" y="48" width="59" height="14" />
+                    <circle cx="85" cy="55" r="8" />
+                  </g>
+                  <!-- Garis Telapak Tangan -->
+                  <path d="M 35 75 Q 50 85 75 70" fill="none" stroke="#d35400" stroke-width="3" stroke-linecap="round"
+                    opacity="0.6" />
+                  <path d="M 45 60 Q 60 70 80 60" fill="none" stroke="#d35400" stroke-width="3" stroke-linecap="round"
+                    opacity="0.6" />
+                  <path d="M 35 95 Q 50 90 60 105" fill="none" stroke="#d35400" stroke-width="3" stroke-linecap="round"
+                    opacity="0.6" />
+                </svg>
+              </div>
+              <div class="touch-feedback" id="touch-feedback">
+                <div class="feedback-waves" id="feedback-waves"></div>
+              </div>
+              <div class="sensation-text" id="sensation-text">
+                Pilih tekstur!
+              </div>
+            </div>
+
+            <!-- Pilihan Tekstur -->
+            <div class="texture-grid">
+              <button class="texture-btn" onclick="touchTexture('halus')"
+                style="background: linear-gradient(135deg, #fce4ec, #f8bbd0)">
+                <span class="tex-icon">🧁</span>
+                <span class="tex-label">Halus</span>
+                <span class="tex-sub">seperti krim</span>
+              </button>
+              <button class="texture-btn" onclick="touchTexture('kasar')"
+                style="background: linear-gradient(135deg, #fff3e0, #ffe0b2)">
+                <span class="tex-icon">🪨</span>
+                <span class="tex-label">Kasar</span>
+                <span class="tex-sub">seperti batu</span>
+              </button>
+              <button class="texture-btn" onclick="touchTexture('lembut')"
+                style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9)">
+                <span class="tex-icon">🧸</span>
+                <span class="tex-label">Lembut</span>
+                <span class="tex-sub">seperti kapas</span>
+              </button>
+              <button class="texture-btn" onclick="touchTexture('panas')"
+                style="background: linear-gradient(135deg, #fff9c4, #fff176)">
+                <span class="tex-icon">🔥</span>
+                <span class="tex-label">Panas</span>
+                <span class="tex-sub">seperti api kecil</span>
+              </button>
+              <button class="texture-btn" onclick="touchTexture('dingin')"
+                style="background: linear-gradient(135deg, #e3f2fd, #bbdefb)">
+                <span class="tex-icon">🧊</span>
+                <span class="tex-label">Dingin</span>
+                <span class="tex-sub">seperti es</span>
+              </button>
+              <button class="texture-btn" onclick="touchTexture('bergetar')"
+                style="background: linear-gradient(135deg, #f3e5f5, #e1bee7)">
+                <span class="tex-icon">📳</span>
+                <span class="tex-label">Getaran</span>
+                <span class="tex-sub">seperti hp getar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-panel">
+          <div class="info-badge" id="kulit-badge">
+            ✋ Pilih tekstur untuk dirasakan!
+          </div>
+          <div class="info-box">
+            <h3 class="info-title">🔍 Reseptor Kulit</h3>
+            <p id="kulit-text">
+              Kulit kita punya jutaan reseptor kecil yang bisa merasakan
+              sentuhan, suhu, dan tekanan. Pilih tekstur untuk belajar lebih
+              lanjut!
+            </p>
+          </div>
+          <!-- ===== STRUKTUR KULIT ===== -->
+          <div class="eye-anatomy-panel" style="margin-top: 10px;">
+            <h3>🔍 Anatomi Kulit (Klik untuk Belajar!)</h3>
+            <div class="eye-side-diagram"
+              style="display:flex; justify-content:center; align-items:center; padding: 25px 0;">
+              <svg width="350" height="220" viewBox="0 0 350 220" xmlns="http://www.w3.org/2000/svg"
+                style="filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); background: rgba(255,255,255,0.4); border-radius: 20px; padding: 10px;">
+
+                <!-- Hipodermis (Bawah) -->
+                <path d="M 20 150 L 330 150 L 330 200 L 20 200 Z" fill="#ffeaa7" class="clickable-path"
+                  onclick="showSkinPart('hipodermis')" style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="50" cy="175" r="10" fill="#fdcb6e" opacity="0.6" />
+                <circle cx="80" cy="180" r="12" fill="#fdcb6e" opacity="0.6" />
+                <circle cx="120" cy="170" r="15" fill="#fdcb6e" opacity="0.6" />
+                <circle cx="160" cy="185" r="10" fill="#fdcb6e" opacity="0.6" />
+                <circle cx="200" cy="175" r="14" fill="#fdcb6e" opacity="0.6" />
+                <circle cx="240" cy="180" r="11" fill="#fdcb6e" opacity="0.6" />
+                <circle cx="280" cy="170" r="16" fill="#fdcb6e" opacity="0.6" />
+                <circle cx="310" cy="185" r="9" fill="#fdcb6e" opacity="0.6" />
+
+                <!-- Dermis (Tengah) -->
+                <path d="M 20 50 L 330 50 L 330 150 L 20 150 Z" fill="#ffb8b8" opacity="0.5" class="clickable-path"
+                  onclick="showSkinPart('dermis')" style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Rambut Kulit -->
+                <path d="M 120 100 L 140 10" stroke="#2d3748" stroke-width="4" stroke-linecap="round" />
+                <path d="M 105 110 C 105 125, 135 125, 135 110 C 135 95, 105 95, 105 110" fill="#636e72" />
+                <!-- Folikel Rambut -->
+
+                <!-- Reseptor Sentuhan & Saraf -->
+                <!-- Saraf Biru (Dingin) -->
+                <path d="M 200 200 Q 210 150, 180 100 Q 200 70, 190 50" fill="none" stroke="#74b9ff" stroke-width="4"
+                  class="clickable-path" onclick="showSkinPart('reseptor')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <circle cx="190" cy="50" r="6" fill="#0984e3" />
+                <!-- Saraf Merah (Panas/Sakit) -->
+                <path d="M 260 200 Q 240 150, 270 100 Q 250 70, 260 50" fill="none" stroke="#ff7675" stroke-width="4"
+                  class="clickable-path" onclick="showSkinPart('reseptor')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <path d="M 255 45 L 265 55 M 255 55 L 265 45" stroke="#d63031" stroke-width="4"
+                  stroke-linecap="round" />
+                <!-- Saraf Kuning (Tekanan/Kasar) -->
+                <path d="M 70 200 Q 90 150, 60 120 Q 80 90, 70 70" fill="none" stroke="#feca57" stroke-width="5"
+                  class="clickable-path" onclick="showSkinPart('reseptor')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <ellipse cx="70" cy="70" rx="10" ry="6" fill="#fdcb6e" />
+
+                <!-- Epidermis (Atas) -->
+                <path d="M 20 20 L 330 20 L 330 50 Q 175 60, 20 50 Z" fill="#ffe0e0" stroke="#ffc0cb" stroke-width="3"
+                  class="clickable-path" onclick="showSkinPart('epidermis')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Label Teks -->
+                <text x="25" y="40" font-size="12" fill="#2d3748" font-weight="900"
+                  font-family="Nunito">Epidermis</text>
+                <text x="25" y="100" font-size="12" fill="#2d3748" font-weight="900" font-family="Nunito">Dermis</text>
+                <text x="25" y="180" font-size="12" fill="#2d3748" font-weight="900"
+                  font-family="Nunito">Hipodermis</text>
+              </svg>
+            </div>
+            <div class="eye-part-info" id="skin-part-info"
+              style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.8); border-radius: 8px; font-weight: bold; color: var(--secondary);">
+              Klik bagian kulit di atas untuk melihat penjelasannya.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Video Ilustrasi Proses Saraf Kulit -->
+      <div class="video-section video-kulit">
+        <div class="video-section-header">
+          <span class="video-badge">🎬 Video Ilustrasi</span>
+          <h3 class="video-title">Proses Saraf Peraba Kulit</h3>
+          <p class="video-desc">
+            Tonton bagaimana reseptor di kulit mendeteksi sentuhan dan
+            mengirim sinyal ke otak!
+          </p>
+        </div>
+        <div class="video-wrapper">
+          <video controls class="sense-video-player">
+            <source src="video/kulit.mp4" type="video/mp4" />
+            <p>
+              Browser kamu tidak mendukung pemutaran video. Silakan perbarui
+              browser-mu.
+            </p>
+          </video>
+        </div>
+        <div class="video-caption">
+          <span class="caption-icon">🧠</span>
+          <span>Sentuhan → Reseptor Kulit → Saraf Sensorik → Sumsum Tulang
+            Belakang → Otak → Kita merasakan!</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TELINGA ==================== -->
+    <section id="sense-telinga" class="sense-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">👂 Indera Pendengaran — Telinga</h2>
+        <p class="panel-desc">
+          Telinga kita bisa mendengar suara dari berbagai tingkat volume. Ayo
+          atur volumenya!
+        </p>
+      </div>
+      <div class="lab-workspace">
+        <div class="sim-area">
+          <div class="ear-scene">
+            <!-- Telinga Besar SVG -->
+            <div class="ear-display">
+              <div class="big-ear" id="big-ear-display" style="font-size:0; display:flex; justify-content:center;">
+                <svg width="150" height="200" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg"
+                  style="filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); transition: transform 0.2s;">
+                  <path
+                    d="M80 20 C40 -10 10 30 15 70 C20 120 40 140 60 140 C80 140 90 120 80 90 C70 60 40 80 40 60 C40 40 60 30 70 40"
+                    fill="#fbc2a9" stroke="#d4957a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M60 45 C45 45 35 60 40 80 C45 100 65 110 75 90" fill="none" stroke="#e6a182" stroke-width="6"
+                    stroke-linecap="round" />
+                  <circle cx="50" cy="90" r="8" fill="#a0522d" opacity="0.3" />
+                </svg>
+              </div>
+              <div class="sound-waves" id="sound-waves">
+                <div class="wave w1"></div>
+                <div class="wave w2"></div>
+                <div class="wave w3"></div>
+                <div class="wave w4"></div>
+              </div>
+            </div>
+
+            <!-- Volume Control -->
+            <div class="volume-control">
+              <div class="vol-header">
+                <span class="vol-icon" id="vol-icon">🔈</span>
+                <span class="vol-label">Volume Suara</span>
+              </div>
+              <div class="slider-wrap">
+                <span class="slider-min">0</span>
+                <input type="range" class="vol-slider" id="vol-slider" min="0" max="100" value="30"
+                  oninput="updateVolume(this.value)" />
+                <span class="slider-max">100 dB</span>
+              </div>
+              <div class="vol-value-display">
+                <span id="vol-value">30</span>
+                <span class="vol-unit">dB</span>
+              </div>
+
+              <!-- Indikator -->
+              <div class="vol-indicator" id="vol-indicator">
+                <div class="indicator-bar">
+                  <div class="indicator-fill" id="indicator-fill"></div>
+                </div>
+                <div class="indicator-zones">
+                  <span class="zone-label safe">Aman</span>
+                  <span class="zone-label warning">Hati-hati</span>
+                  <span class="zone-label danger">Bahaya!</span>
+                </div>
+              </div>
+
+              <!-- Status Badge -->
+              <div class="vol-status" id="vol-status">
+                <span id="vol-status-icon">✅</span>
+                <span id="vol-status-text">Volume aman untuk didengar</span>
+              </div>
+
+              <!-- Contoh Suara -->
+              <div class="sound-examples">
+                <h4 class="examples-title">Contoh Tingkat Suara:</h4>
+                <div class="sound-ex-grid">
+                  <button class="sound-ex-btn" onclick="setVolume(10)">
+                    🌿 10 dB<br /><small>Bisikan daun</small>
+                  </button>
+                  <button class="sound-ex-btn" onclick="setVolume(40)">
+                    🗣️ 40 dB<br /><small>Bicara normal</small>
+                  </button>
+                  <button class="sound-ex-btn" onclick="setVolume(70)">
+                    🚗 70 dB<br /><small>Suara mobil</small>
+                  </button>
+                  <button class="sound-ex-btn" onclick="setVolume(85)">
+                    🎵 85 dB<br /><small>Musik keras</small>
+                  </button>
+                  <button class="sound-ex-btn" onclick="setVolume(100)">
+                    ✈️ 100 dB<br /><small>Pesawat terbang</small>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-panel">
+          <div class="info-badge" id="telinga-badge">
+            👂 Geser slider untuk atur volume!
+          </div>
+          <div class="info-box">
+            <h3 class="info-title">🔍 Cara Kerja Telinga</h3>
+            <p id="telinga-text">
+              Geser slider volume untuk melihat bagaimana tingkat suara
+              mempengaruhi kesehatan telinga kita. Batas aman pendengaran
+              adalah di bawah 85 dB!
+            </p>
+          </div>
+          <!-- ===== STRUKTUR TELINGA ===== -->
+          <div class="eye-anatomy-panel" style="margin-top: 20px;">
+            <h3>🔍 Anatomi Telinga (Klik untuk Belajar!)</h3>
+            <div class="eye-side-diagram"
+              style="display:flex; justify-content:center; align-items:center; padding: 25px 0;">
+              <svg width="350" height="220" viewBox="0 0 350 220" xmlns="http://www.w3.org/2000/svg"
+                style="filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); background: rgba(255,255,255,0.4); border-radius: 20px; padding: 10px;">
+
+                <!-- Saraf Auditori -->
+                <path d="M 240 100 Q 280 100, 320 120 M 240 120 Q 280 120, 320 130" fill="none" stroke="#feca57"
+                  stroke-width="12" stroke-linecap="round" class="clickable-path" onclick="showEarPart('koklea')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Koklea (Rumah Siput) -->
+                <path d="M 220 130 C 250 150, 260 90, 240 80 C 220 70, 210 110, 230 110 C 240 110, 240 95, 235 95"
+                  fill="none" stroke="#74b9ff" stroke-width="16" stroke-linecap="round" class="clickable-path"
+                  onclick="showEarPart('koklea')" style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Tulang Pendengaran (Ossicles) -->
+                <path d="M 175 110 L 195 90 L 215 110" fill="none" stroke="#dfe6e9" stroke-width="8"
+                  stroke-linecap="round" stroke-linejoin="round" class="clickable-path" onclick="showEarPart('gendang')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Gendang Telinga (Membran Timpani) -->
+                <path d="M 170 80 Q 180 110, 170 140" fill="none" stroke="#ff7675" stroke-width="8"
+                  stroke-linecap="round" class="clickable-path" onclick="showEarPart('gendang')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Saluran Telinga -->
+                <path d="M 80 80 Q 125 70, 170 80 M 80 140 Q 125 150, 170 140" fill="none" stroke="#fbc2a9"
+                  stroke-width="15" stroke-linecap="round" class="clickable-path" onclick="showEarPart('saluran')"
+                  style="cursor:pointer; transition:all 0.3s;" />
+                <!-- Area dalam saluran telinga -->
+                <path d="M 80 88 Q 125 78, 166 88 L 166 132 Q 125 142, 80 132 Z" fill="#2d3748" opacity="0.3"
+                  style="pointer-events:none;" />
+
+                <!-- Daun Telinga (Pinna) -->
+                <path
+                  d="M 90 40 C 30 -20, -10 60, 20 130 C 40 180, 80 180, 90 150 C 100 120, 80 120, 70 100 C 60 80, 70 60, 90 60"
+                  fill="#fbc2a9" stroke="#e6a182" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"
+                  class="clickable-path" onclick="showEarPart('daun')" style="cursor:pointer; transition:all 0.3s;" />
+
+                <!-- Label Teks -->
+                <text x="30" y="25" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Luar</text>
+                <text x="280" y="25" font-size="14" fill="#2d3748" font-weight="900" font-family="Nunito">Ke Otak</text>
+
+                <!-- Gelombang Suara Masuk -->
+                <path d="M -10 90 A 20 20 0 0 1 -10 130 M 10 80 A 40 40 0 0 1 10 140 M 30 70 A 60 60 0 0 1 30 150"
+                  fill="none" stroke="#74b9ff" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+              </svg>
+            </div>
+            <div class="eye-part-info" id="ear-part-info"
+              style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.8); border-radius: 8px; font-weight: bold; color: var(--secondary);">
+              Klik bagian telinga di atas untuk melihat penjelasannya.
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- Video Ilustrasi Proses Saraf Telinga -->
+      <div class="video-section video-telinga">
+        <div class="video-section-header">
+          <span class="video-badge">🎬 Video Ilustrasi</span>
+          <h3 class="video-title">Proses Saraf Pendengaran Telinga</h3>
+          <p class="video-desc">
+            Tonton bagaimana gelombang suara diubah menjadi sinyal saraf yang
+            bisa dipahami otak!
+          </p>
+        </div>
+        <div class="video-wrapper">
+          <video controls class="sense-video-player">
+            <source src="video/telinga.mp4" type="video/mp4" />
+            <p>
+              Browser kamu tidak mendukung pemutaran video. Silakan perbarui
+              browser-mu.
+            </p>
+          </video>
+        </div>
+        <div class="video-caption">
+          <span class="caption-icon">🧠</span>
+          <span>Gelombang Suara → Gendang Telinga → Tulang Pendengaran → Koklea →
+            Saraf Auditori → Otak!</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="lab-footer">
+    <p>
+      🔬 Lab Virtual Panca Indera | Dibuat untuk Siswa SD | Belajar Sains
+      dengan Seru! 🎉
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
