@@ -72,13 +72,52 @@
                 <span class="scene-obj" style="font-size: 2rem; top: 40%; left: 5%; animation: none;">🚥</span>
               </div>
 
-              <!-- Objek Jarak Dekat (Foreground) -->
+              <!-- Objek Jarak Dekat (Dashboard Motor FPV) -->
               <div class="foreground-objects" id="near-objects"
-                style="position:absolute; bottom:5%; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.95); padding:15px 30px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.3); text-align:center; z-index:4; transition:filter 0.3s, transform 0.3s; border: 3px solid #ff9f43; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                <span
-                  style="font-size: 4rem; line-height: 1; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));">🏍️</span>
-                <strong style="font-size:1.1rem; color:#2d3748; margin-top: 5px;">Sepeda Motor</strong>
-                <span style="font-size:0.8rem; color:#718096;">(Jarak Dekat)</span>
+                style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); width: 100%; max-width: 380px; height: 160px; z-index:4; transition:filter 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; pointer-events: none;">
+                
+                <svg width="100%" height="100%" viewBox="0 0 350 160" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 -5px 15px rgba(0,0,0,0.25));">
+                  <!-- Stang Motor -->
+                  <path d="M -20 160 L 100 120 M 370 160 L 250 120" stroke="#2d3436" stroke-width="25" stroke-linecap="round" />
+                  
+                  <!-- Handgrip (Pegangan Tangan) -->
+                  <path d="M -10 160 L 60 135 M 360 160 L 290 135" stroke="#1e272e" stroke-width="32" stroke-linecap="round" />
+                  <!-- Tekstur Handgrip -->
+                  <path d="M 10 148 L 25 130 M 30 155 L 45 138" stroke="#111" stroke-width="4" />
+                  <path d="M 340 148 L 325 130 M 320 155 L 305 138" stroke="#111" stroke-width="4" />
+
+                  <!-- Tangkai Kaca Spion -->
+                  <path d="M 80 125 Q 60 70 40 50 M 270 125 Q 290 70 310 50" fill="none" stroke="#636e72" stroke-width="6" stroke-linecap="round" />
+                  <!-- Kaca Spion Kiri -->
+                  <ellipse cx="40" cy="45" rx="35" ry="20" fill="#2d3436" transform="rotate(-15 40 45)" />
+                  <ellipse cx="40" cy="45" rx="30" ry="15" fill="#81ecec" transform="rotate(-15 40 45)" />
+                  <path d="M 25 40 Q 40 30 55 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" transform="rotate(-15 40 45)" />
+                  <!-- Kaca Spion Kanan -->
+                  <ellipse cx="310" cy="45" rx="35" ry="20" fill="#2d3436" transform="rotate(15 310 45)" />
+                  <ellipse cx="310" cy="45" rx="30" ry="15" fill="#81ecec" transform="rotate(15 310 45)" />
+                  <path d="M 295 40 Q 310 30 325 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" transform="rotate(15 310 45)" />
+
+                  <!-- Batok Tengah Speedometer -->
+                  <path d="M 120 160 Q 175 60 230 160 Z" fill="#ff7675" stroke="#d63031" stroke-width="4" />
+                  <path d="M 130 160 Q 175 80 220 160 Z" fill="#2d3436" />
+
+                  <!-- Layar Speedometer -->
+                  <circle cx="175" cy="130" r="40" fill="#f5f6fa" stroke="#dfe6e9" stroke-width="4" />
+                  <!-- Indikator Angka Speedo -->
+                  <path d="M 145 145 A 32 32 0 0 1 205 145" fill="none" stroke="#b2bec3" stroke-width="6" stroke-linecap="round" />
+                  <!-- Zona Merah Speedo -->
+                  <path d="M 195 120 A 32 32 0 0 1 205 145" fill="none" stroke="#ff7675" stroke-width="6" stroke-linecap="round" />
+                  
+                  <!-- Jarum Speedometer (Animasi Getar) -->
+                  <g style="animation: shake 0.1s infinite alternate; transform-origin: 175px 130px;">
+                    <line x1="175" y1="130" x2="155" y2="105" stroke="#d63031" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="175" cy="130" r="5" fill="#2d3436" />
+                  </g>
+                </svg>
+
+                <div style="position: absolute; bottom: 35px; background: rgba(255, 255, 255, 0.95); color: #2d3436; padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 800; border: 2px solid #ff7675; box-shadow: 0 4px 10px rgba(0,0,0,0.15); pointer-events: none;">
+                  Dashboard Motor (Dekat)
+                </div>
               </div>
 
               <!-- Kelopak Mata FPV -->

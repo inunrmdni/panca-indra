@@ -673,4 +673,32 @@ input[type=range]::-webkit-slider-runnable-track {
   .char-eyes { gap: 20px; }
   .logo-title { font-size: 1.6rem; }
   .logo-icon { font-size: 2rem; }
+  
+  /* Panca Indra Lab adjustments for Mobile */
+  .lab-workspace { gap: 15px; }
+  .sim-area { padding: 15px; border-radius: var(--radius-lg); }
+  .info-panel { padding: 15px; border-radius: var(--radius-lg); }
+  
+  .panel-title { font-size: 1.5rem; }
+  .panel-desc { font-size: 0.9rem; }
+  .panel-header { margin-bottom: 15px; }
+  
+  .scene-bg { height: 250px; }
+  
+  /* Distant objects scaling */
+  #distant-objects span:nth-child(1) { font-size: 3rem !important; top: 15% !important;} /* Gunung */
+  #distant-objects span:nth-child(2) { font-size: 2.5rem !important; top: 25% !important;} /* Gedung */
+  #distant-objects span:nth-child(3) { font-size: 2rem !important; top: 5% !important;} /* Awan */
+  #distant-objects span:nth-child(4) { font-size: 1.8rem !important; } /* Pohon */
+  #distant-objects span:nth-child(5) { font-size: 1.5rem !important; top: 45% !important;} /* Lampu */
+  
+  /* Foreground object scaling */
+  .foreground-objects span { font-size: 2.5rem !important; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2)) !important; }
+  .foreground-objects strong { font-size: 0.9rem !important; margin-top: 2px !important; }
+  .foreground-objects { padding: 8px 15px !important; bottom: 2% !important; border-width: 2px !important; }
+  
+  .eye-anatomy-panel { padding: 10px; }
+  .eye-side-diagram svg, .hand-emoji svg, .taste-face svg, .nose-character svg { max-width: 100%; height: auto; }
+  .control-group label { font-size: 0.9rem; }
+  input[type=range]::-webkit-slider-thumb { width: 20px; height: 20px; margin-top: -6px; }
 }
