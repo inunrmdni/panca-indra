@@ -674,34 +674,63 @@ function updateEyeVision() {
   const nightVal = document.getElementById("night-slider").value;
   const lightVal = document.getElementById("light-slider").value;
   const waterVal = document.getElementById("water-slider").value;
-  const minusVal = document.getElementById("minus-slider").value;
-  const plusVal = document.getElementById("plus-slider").value;
-  const silinderVal = document.getElementById("silinder-slider").value;
+  const minusVal = parseFloat(document.getElementById("minus-slider").value);
+  const plusVal = parseFloat(document.getElementById("plus-slider").value);
+  const silinderVal = parseFloat(document.getElementById("silinder-slider").value);
+  const axisVal = document.getElementById("axis-slider").value;
 
-  // Update Teks Label
+  // Update Teks Label Night, Light, Water
   document.getElementById("night-value").innerText = nightVal;
   document.getElementById("light-value").innerText = lightVal;
   document.getElementById("water-value").innerText = waterVal;
-  document.getElementById("minus-value").innerText = minusVal;
-  document.getElementById("plus-value").innerText = plusVal;
-  document.getElementById("silinder-value").innerText = silinderVal;
+
+  // Formatting teks Minus
+  let minusText = "-" + minusVal.toFixed(2) + " D";
+  let minusDesc = "";
+  if (minusVal === 0) { minusText = "0.00 D"; minusDesc = "(Normal)"; }
+  else if (minusVal <= 3.00) minusDesc = "(Buram Rendah)";
+  else if (minusVal <= 6.00) minusDesc = "(Buram Sedang)";
+  else minusDesc = "(Buram Tinggi)";
+  document.getElementById("minus-value").innerText = minusText;
+  document.getElementById("minus-desc").innerText = minusDesc;
+
+  // Formatting teks Plus
+  let plusText = "+" + plusVal.toFixed(2) + " D";
+  let plusDesc = "";
+  if (plusVal === 0) { plusText = "+0.00 D"; plusDesc = "(Normal)"; }
+  else if (plusVal <= 2.00) plusDesc = "(Buram Rendah)";
+  else if (plusVal <= 5.00) plusDesc = "(Buram Sedang)";
+  else plusDesc = "(Buram Tinggi)";
+  document.getElementById("plus-value").innerText = plusText;
+  document.getElementById("plus-desc").innerText = plusDesc;
+
+  // Formatting teks Silinder
+  let cylText = "-" + silinderVal.toFixed(2) + " D";
+  if (silinderVal === 0) cylText = "0.00 D";
+  document.getElementById("silinder-value").innerText = cylText;
+  document.getElementById("axis-value").innerText = axisVal + "°";
 
   // 1. Kalkulasi Pencahayaan (Night vs Light)
-  // Malam dimulai jam 18:00 (gelap mulai).
-  const darkness = (nightVal - 18) / 6; // 0 (sore) sampai 1 (tengah malam)
+  const darkness = (nightVal - 18) / 6; 
   const baseBrightness = lightVal / 100;
-  // Cahaya akhir = Intensitas cahaya dipotong oleh kegelapan malam
   const finalBrightness = Math.max(0.1, baseBrightness - (darkness * 0.8));
 
   // 2. Kalkulasi Blur Minus & Plus
-  const distantBlur = minusVal / 15; // Max ~6.6px blur
-  const nearBlur = plusVal / 15; // Max ~6.6px blur
+  const distantBlur = minusVal * 1.5; 
+  const nearBlur = plusVal * 2; 
 
   // 3. Kalkulasi Silinder (Astigmatisme)
-  // Silinder membuat bayangan ganda atau melengkung (drop-shadow & sedikit blur)
   const isSilinder = silinderVal > 0;
-  const silinderOffset = silinderVal / 10;
-  const silinderShadow = isSilinder ? `drop-shadow(${silinderOffset}px ${silinderOffset}px ${silinderOffset}px rgba(255,255,255,0.5))` : "";
+  let silinderShadow = "";
+  let silinderBlur = 0;
+  if (isSilinder) {
+     const rad = (axisVal * Math.PI) / 180;
+     const offset = silinderVal * 2;
+     const xOff = Math.cos(rad) * offset;
+     const yOff = Math.sin(rad) * offset;
+     silinderShadow = `drop-shadow(${xOff}px ${yOff}px ${silinderVal}px rgba(255,255,255,0.6))`;
+     silinderBlur = silinderVal * 0.5;
+  }
 
   // Menerapkan ke Elemen
   const sceneBg = document.getElementById("scene-bg");
@@ -709,19 +738,17 @@ function updateEyeVision() {
   const nearObjects = document.getElementById("near-objects");
 
   if(sceneBg) {
-    sceneBg.style.filter = `brightness(${finalBrightness}) ${silinderShadow}`;
+    sceneBg.style.filter = `brightness(${finalBrightness})`;
   }
 
   if(distantObjects) {
-    // Objek jauh dipengaruhi oleh minus dan air
-    const totalDistantBlur = distantBlur + (waterVal / 30);
-    distantObjects.style.filter = `blur(${totalDistantBlur}px)`;
+    const totalDistantBlur = distantBlur + (waterVal / 30) + silinderBlur;
+    distantObjects.style.filter = `blur(${totalDistantBlur}px) ${silinderShadow}`;
   }
 
   if(nearObjects) {
-    // Objek dekat dipengaruhi oleh plus dan air
-    const totalNearBlur = nearBlur + (waterVal / 30);
-    nearObjects.style.filter = `blur(${totalNearBlur}px)`;
+    const totalNearBlur = nearBlur + (waterVal / 30) + silinderBlur;
+    nearObjects.style.filter = `blur(${totalNearBlur}px) ${silinderShadow}`;
   }
 
   // Tetesan Air Mata
