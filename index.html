@@ -18,8 +18,8 @@
       <div class="logo-wrap">
         <span class="logo-icon">🔬</span>
         <div>
-          <h1 class="logo-title">Lab Panca Indera</h1>
-          <p class="logo-sub">Virtual Science Lab untuk SD</p>
+          <h1 class="logo-title">Lab ICT Panca Indera</h1>
+          <p class="logo-sub">Panca Indara</p>
         </div>
       </div>
     </div>
@@ -75,27 +75,33 @@
               <!-- Objek Jarak Dekat (Dashboard Motor FPV) -->
               <div class="foreground-objects" id="near-objects"
                 style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); width: 100%; max-width: 380px; height: 160px; z-index:4; transition:filter 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; pointer-events: none;">
-                
-                <svg width="100%" height="100%" viewBox="0 0 350 160" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 -5px 15px rgba(0,0,0,0.25));">
+
+                <svg width="100%" height="100%" viewBox="0 0 350 160" preserveAspectRatio="xMidYMax meet"
+                  xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 -5px 15px rgba(0,0,0,0.25));">
                   <!-- Stang Motor -->
-                  <path d="M -20 160 L 100 120 M 370 160 L 250 120" stroke="#2d3436" stroke-width="25" stroke-linecap="round" />
-                  
+                  <path d="M -20 160 L 100 120 M 370 160 L 250 120" stroke="#2d3436" stroke-width="25"
+                    stroke-linecap="round" />
+
                   <!-- Handgrip (Pegangan Tangan) -->
-                  <path d="M -10 160 L 60 135 M 360 160 L 290 135" stroke="#1e272e" stroke-width="32" stroke-linecap="round" />
+                  <path d="M -10 160 L 60 135 M 360 160 L 290 135" stroke="#1e272e" stroke-width="32"
+                    stroke-linecap="round" />
                   <!-- Tekstur Handgrip -->
                   <path d="M 10 148 L 25 130 M 30 155 L 45 138" stroke="#111" stroke-width="4" />
                   <path d="M 340 148 L 325 130 M 320 155 L 305 138" stroke="#111" stroke-width="4" />
 
                   <!-- Tangkai Kaca Spion -->
-                  <path d="M 80 125 Q 60 70 40 50 M 270 125 Q 290 70 310 50" fill="none" stroke="#636e72" stroke-width="6" stroke-linecap="round" />
+                  <path d="M 80 125 Q 60 70 40 50 M 270 125 Q 290 70 310 50" fill="none" stroke="#636e72"
+                    stroke-width="6" stroke-linecap="round" />
                   <!-- Kaca Spion Kiri -->
                   <ellipse cx="40" cy="45" rx="35" ry="20" fill="#2d3436" transform="rotate(-15 40 45)" />
                   <ellipse cx="40" cy="45" rx="30" ry="15" fill="#81ecec" transform="rotate(-15 40 45)" />
-                  <path d="M 25 40 Q 40 30 55 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" transform="rotate(-15 40 45)" />
+                  <path d="M 25 40 Q 40 30 55 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"
+                    transform="rotate(-15 40 45)" />
                   <!-- Kaca Spion Kanan -->
                   <ellipse cx="310" cy="45" rx="35" ry="20" fill="#2d3436" transform="rotate(15 310 45)" />
                   <ellipse cx="310" cy="45" rx="30" ry="15" fill="#81ecec" transform="rotate(15 310 45)" />
-                  <path d="M 295 40 Q 310 30 325 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" transform="rotate(15 310 45)" />
+                  <path d="M 295 40 Q 310 30 325 40" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"
+                    transform="rotate(15 310 45)" />
 
                   <!-- Batok Tengah Speedometer -->
                   <path d="M 120 160 Q 175 60 230 160 Z" fill="#ff7675" stroke="#d63031" stroke-width="4" />
@@ -104,18 +110,22 @@
                   <!-- Layar Speedometer -->
                   <circle cx="175" cy="130" r="40" fill="#f5f6fa" stroke="#dfe6e9" stroke-width="4" />
                   <!-- Indikator Angka Speedo -->
-                  <path d="M 145 145 A 32 32 0 0 1 205 145" fill="none" stroke="#b2bec3" stroke-width="6" stroke-linecap="round" />
+                  <path d="M 145 145 A 32 32 0 0 1 205 145" fill="none" stroke="#b2bec3" stroke-width="6"
+                    stroke-linecap="round" />
                   <!-- Zona Merah Speedo -->
-                  <path d="M 195 120 A 32 32 0 0 1 205 145" fill="none" stroke="#ff7675" stroke-width="6" stroke-linecap="round" />
-                  
+                  <path d="M 195 120 A 32 32 0 0 1 205 145" fill="none" stroke="#ff7675" stroke-width="6"
+                    stroke-linecap="round" />
+
                   <!-- Jarum Speedometer (Animasi Getar) -->
                   <g style="animation: shake 0.1s infinite alternate; transform-origin: 175px 130px;">
-                    <line x1="175" y1="130" x2="155" y2="105" stroke="#d63031" stroke-width="3" stroke-linecap="round" />
+                    <line x1="175" y1="130" x2="155" y2="105" stroke="#d63031" stroke-width="3"
+                      stroke-linecap="round" />
                     <circle cx="175" cy="130" r="5" fill="#2d3436" />
                   </g>
                 </svg>
 
-                <div style="position: absolute; bottom: 35px; background: rgba(255, 255, 255, 0.95); color: #2d3436; padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 800; border: 2px solid #ff7675; box-shadow: 0 4px 10px rgba(0,0,0,0.15); pointer-events: none;">
+                <div
+                  style="position: absolute; bottom: 35px; background: rgba(255, 255, 255, 0.95); color: #2d3436; padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 800; border: 2px solid #ff7675; box-shadow: 0 4px 10px rgba(0,0,0,0.15); pointer-events: none;">
                   Dashboard Motor (Dekat)
                 </div>
               </div>
@@ -336,9 +346,7 @@
                       opacity="0.8" />
                   </svg>
                 </div>
-                <div class="char-mouth" id="char-mouth">😊</div>
               </div>
-              <div class="char-body">🧒</div>
             </div>
 
             <!-- Benda-benda -->
@@ -484,29 +492,45 @@
             <!-- Gambar Lidah Jelas (SVG) -->
             <div class="taste-face" id="taste-face"
               style="display: flex; flex-direction: column; align-items: center; position: relative; background: transparent; border: none; box-shadow: none; width: auto; height: auto;">
-              <svg width="200" height="250" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" id="tongue-svg"
-                style="filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); z-index: 2; transition: transform 0.3s;">
-                <path d="M50 10 C50 10, 20 150, 40 200 C60 250, 140 250, 160 200 C180 150, 150 10, 150 10 Z"
-                  fill="#ff9ff3" stroke="#f368e0" stroke-width="8" />
-                <path d="M100 20 Q100 150 100 220" stroke="#f368e0" stroke-width="6" stroke-linecap="round" fill="none"
-                  opacity="0.4" />
+              <div class="tongue-container">
+                <svg width="200" height="250" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" id="tongue-svg"
+                  style="filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); z-index: 2; transition: transform 0.3s;">
+                  <path d="M50 10 C50 10, 20 150, 40 200 C60 250, 140 250, 160 200 C180 150, 150 10, 150 10 Z"
+                    fill="#ff9ff3" stroke="#f368e0" stroke-width="8" />
+                  <path d="M100 20 Q100 150 100 220" stroke="#f368e0" stroke-width="6" stroke-linecap="round" fill="none"
+                    opacity="0.4" />
 
-                <path class="taste-zone back" data-zone="pahit" d="M60 40 Q100 70 140 40 Q100 60 60 40" fill="#10ac84"
-                  opacity="0.3" />
-                <path class="taste-zone middle" data-zone="asam" d="M45 80 Q35 140 55 170 Q70 140 65 80 Z"
-                  fill="#feca57" opacity="0.3" />
-                <path class="taste-zone middle" data-zone="asam" d="M155 80 Q165 140 145 170 Q130 140 135 80 Z"
-                  fill="#feca57" opacity="0.3" />
-                <path class="taste-zone side-l" data-zone="asin" d="M55 175 Q75 220 95 230 Q80 190 65 170 Z"
-                  fill="#54a0ff" opacity="0.3" />
-                <path class="taste-zone side-r" data-zone="asin" d="M145 175 Q125 220 105 230 Q120 190 135 170 Z"
-                  fill="#54a0ff" opacity="0.3" />
-                <path class="taste-zone tip" data-zone="manis" d="M90 230 Q100 245 110 230 Q100 220 90 230 Z"
-                  fill="#ff6b6b" opacity="0.3" />
-              </svg>
-              <div class="face-expression" id="face-expression"
-                style="font-size: 3rem; margin-top: 15px; background: rgba(255,255,255,0.9); padding: 5px 30px; border-radius: 30px; box-shadow: 0 8px 15px rgba(0,0,0,0.1);">
-                Pilih Rasa!</div>
+                  <path class="taste-zone back" data-zone="pahit" d="M60 40 Q100 70 140 40 Q100 60 60 40" fill="#10ac84"
+                    opacity="0.3" />
+                  <path class="taste-zone middle" data-zone="asam" d="M45 80 Q35 140 55 170 Q70 140 65 80 Z"
+                    fill="#feca57" opacity="0.3" />
+                  <path class="taste-zone middle" data-zone="asam" d="M155 80 Q165 140 145 170 Q130 140 135 80 Z"
+                    fill="#feca57" opacity="0.3" />
+                  <path class="taste-zone side-l" data-zone="asin" d="M55 175 Q75 220 95 230 Q80 190 65 170 Z"
+                    fill="#54a0ff" opacity="0.3" />
+                  <path class="taste-zone side-r" data-zone="asin" d="M145 175 Q125 220 105 230 Q120 190 135 170 Z"
+                    fill="#54a0ff" opacity="0.3" />
+                  <path class="taste-zone tip" data-zone="manis" d="M90 230 Q100 245 110 230 Q100 220 90 230 Z"
+                    fill="#ff6b6b" opacity="0.3" />
+                  
+                  <!-- Label Rasa pada Lidah -->
+                  <text class="taste-label" x="100" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a0e0e" opacity="0"
+                    style="pointer-events: none; transition: opacity 0.3s;">PAHIT</text>
+                  <text class="taste-label" x="50" y="120" text-anchor="middle" font-size="10" font-weight="bold" fill="#8B7500" opacity="0"
+                    style="pointer-events: none; transition: opacity 0.3s;">ASAM</text>
+                  <text class="taste-label" x="150" y="120" text-anchor="middle" font-size="10" font-weight="bold" fill="#8B7500" opacity="0"
+                    style="pointer-events: none; transition: opacity 0.3s;">ASAM</text>
+                  <text class="taste-label" x="35" y="200" text-anchor="middle" font-size="10" font-weight="bold" fill="#004d66" opacity="0"
+                    style="pointer-events: none; transition: opacity 0.3s;">ASIN</text>
+                  <text class="taste-label" x="165" y="200" text-anchor="middle" font-size="10" font-weight="bold" fill="#004d66" opacity="0"
+                    style="pointer-events: none; transition: opacity 0.3s;">ASIN</text>
+                  <text class="taste-label" x="100" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#8B0000" opacity="0"
+                    style="pointer-events: none; transition: opacity 0.3s;">MANIS</text>
+                </svg>
+                <div class="face-expression" id="face-expression"
+                  style="font-size: 3rem; background: rgba(255,255,255,0.95); padding: 8px 24px; border-radius: 50%; box-shadow: 0 8px 20px rgba(0,0,0,0.12); border: 3px solid #ffd600; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+                  😐</div>
+              </div>
             </div>
 
             <!-- Pilihan makanan -->
