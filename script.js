@@ -22,9 +22,12 @@ function switchSense(senseName) {
 
   // Tampilkan panel yang dipilih
   document.getElementById("sense-" + senseName).classList.add("active");
-  document
-    .querySelector('[data-sense="' + senseName + '"]')
-    .classList.add("active");
+  
+  // Highlight tombol yang aktif - cari tombol berdasarkan teks atau gunakan selector yang tepat
+  const activeButton = document.querySelector('.sense-tab[onclick*="' + senseName + '"]');
+  if (activeButton) {
+    activeButton.classList.add("active");
+  }
 }
 
 // =============================================
@@ -314,8 +317,8 @@ const tasteData = {
   asam: {
     badge: "🍋 Rasa Asam!",
     expression: "😬",
-    text: "<strong>Rasa asam</strong> dirasakan di <strong>bagian tengah dan sisi lidah</strong>! Zat asam (ion H+) mengaktifkan reseptor asam. Reaksi langsung kita adalah menyipitkan mata dan menarik muka — itu refleks alami!",
-    activeZones: ["middle", "side-l", "side-r"],
+    text: "<strong>Rasa asam</strong> dirasakan di <strong>bagian tengah lidah</strong>! Zat asam (ion H+) mengaktifkan reseptor asam. Reaksi langsung kita adalah menyipitkan mata dan menarik muka — itu refleks alami!",
+    activeZones: ["middle"],
     color: "#ffe66d",
     faceBg: "#fffde7",
   },
@@ -362,18 +365,30 @@ function tastFood(type) {
     });
   });
 
+  // Tampilkan/sembunyikan label rasa
+  document.querySelectorAll(".taste-label").forEach((label) => {
+    label.style.opacity = "0";
+  });
+  
+  // Tampilkan label untuk zona aktif
+  data.activeZones.forEach((zone) => {
+    document.querySelectorAll(`.taste-zone.${zone}`).forEach((zoneEl) => {
+      const labels = document.querySelectorAll(".taste-label");
+      labels.forEach((label) => {
+        const labelText = label.textContent.toLowerCase();
+        const zoneDataAttr = zoneEl.getAttribute("data-zone");
+        if (labelText === zoneDataAttr) {
+          label.style.opacity = "1";
+        }
+      });
+    });
+  });
+
   // Highlight tombol
   document
     .querySelectorAll(".food-btn")
     .forEach((b) => b.classList.remove("selected"));
   document.getElementById("food-" + type).classList.add("selected");
-
-  // Animasi lidah keluar
-  const tongue = document.getElementById("tongue-display");
-  tongue.style.transform = "translateY(0px)";
-  setTimeout(() => {
-    tongue.style.transform = "translateY(10px)";
-  }, 500);
 }
 
 function resetTongue() {
@@ -386,6 +401,9 @@ function resetTongue() {
     z.classList.remove("active-zone");
     z.style.fillOpacity = "0.3";
     z.style.filter = "none";
+  });
+  document.querySelectorAll(".taste-label").forEach((label) => {
+    label.style.opacity = "0";
   });
   document
     .querySelectorAll(".food-btn")
