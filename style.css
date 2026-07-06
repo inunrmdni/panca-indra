@@ -426,13 +426,28 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .taste-face {
   display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-  transition: all 0.4s; position: relative;
+  transition: all 0.4s; position: relative; width: 100%;
 }
+
+.tongue-container {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tongue-container svg {
+  position: relative; z-index: 2;
+}
+
 .taste-zone {
   transition: all 0.3s; cursor: pointer;
 }
 .taste-zone:hover {
   fill-opacity: 0.6 !important;
+}
+
+.taste-label {
+  font-family: 'Nunito', sans-serif; font-weight: 900; text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+  transition: opacity 0.3s ease-in-out;
 }
 
 /* ACTIVE PART HIGHLIGHT FOR ANATOMY PANELS */
@@ -443,11 +458,24 @@ input[type=range]::-webkit-slider-runnable-track {
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-.face-expression { position: absolute; top: -20px; right: -20px; font-size: 3rem; background: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 3px solid #f1c40f;}
+.face-expression { 
+  position: absolute; right: -40px; top: 50%; transform: translateY(-50%); 
+  font-size: 3rem; background: white; border-radius: 50%; 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 3px solid #ffd600;
+  display: flex; align-items: center; justify-content: center;
+  animation: faceBounce 0.4s ease-out;
+}
+
+@keyframes faceBounce {
+  0% { transform: translateY(-50%) scale(0.7); opacity: 0; }
+  70% { transform: translateY(-50%) scale(1.1); }
+  100% { transform: translateY(-50%) scale(1); opacity: 1; }
+}
 
 .food-choices {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
   background: rgba(255,255,255,0.5); padding: 20px; border-radius: var(--radius-lg);
+  width: 100%;
 }
 .food-btn {
   display: flex; flex-direction: column; align-items: center; gap: 5px;
