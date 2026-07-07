@@ -729,4 +729,89 @@ input[type=range]::-webkit-slider-runnable-track {
   .eye-side-diagram svg, .hand-emoji svg, .taste-face svg, .nose-character svg { max-width: 100%; height: auto; }
   .control-group label { font-size: 0.9rem; }
   input[type=range]::-webkit-slider-thumb { width: 20px; height: 20px; margin-top: -6px; }
+} 
+/* =====================================================
+   16. ANIMASI EMOJI RASA (LIDAH)
+===================================================== */
+.taste-effects {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; /* Agar tidak mengganggu klik pada lidah */
+  z-index: 10;
+}
+
+.effect-group {
+  position: absolute;
+  width: 100%; height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.effect-group.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.emoji-anim {
+  position: absolute;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+/* --- PEDAS (Api Melayang di Atas) --- */
+.effect-pedas .emoji-anim { font-size: 2.5rem; animation: fireFloat 0.8s infinite alternate ease-in-out; }
+.fire-1 { top: -30px; left: 10%; animation-delay: 0s; }
+.fire-2 { top: -50px; left: 50%; transform: translateX(-50%); font-size: 3.5rem; animation-delay: 0.2s; }
+.fire-3 { top: -30px; right: 10%; animation-delay: 0.4s; }
+
+@keyframes fireFloat {
+  0% { transform: translateY(0) scale(1) translateX(0); }
+  100% { transform: translateY(-15px) scale(1.2) translateX(-50%); }
+}
+
+/* --- MANIS (Hati & Kilauan Muncul Tenggelam) --- */
+.effect-manis .emoji-anim { font-size: 2rem; animation: sweetPop 1.5s infinite ease-out; opacity: 0; }
+.sweet-1 { bottom: -20px; left: 20%; animation-delay: 0s; }
+.sweet-2 { bottom: -30px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; animation-delay: 0.4s; }
+.sweet-3 { bottom: -20px; right: 20%; animation-delay: 0.8s; }
+
+@keyframes sweetPop {
+  0% { transform: translateY(15px) scale(0.5); opacity: 0; }
+  50% { transform: translateY(-5px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-25px) scale(1); opacity: 0; }
+}
+
+/* --- ASIN (Garam dan Tetesan Air Jatuh) --- */
+.effect-asin .emoji-anim { font-size: 1.8rem; animation: saltDrop 1.2s infinite linear; }
+.salt-1 { top: 50%; left: -30px; }
+.salt-2 { top: 60%; right: -25px; animation-delay: 0.6s; font-size: 1.5rem;}
+.salt-3 { top: 75%; left: -15px; animation-delay: 0.3s; font-size: 1.2rem;}
+
+@keyframes saltDrop {
+  0% { transform: translateY(-15px); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(35px); opacity: 0; }
+}
+
+/* --- ASAM (Lemon Bergetar di Samping) --- */
+.effect-asam .emoji-anim { font-size: 2.2rem; animation: sourShake 0.4s infinite alternate; }
+.sour-1 { top: 35%; left: -35px; }
+.sour-2 { top: 40%; right: -35px; animation-delay: 0.2s;}
+
+@keyframes sourShake {
+  0% { transform: rotate(-15deg) scale(0.9); }
+  100% { transform: rotate(15deg) scale(1.1); }
+}
+
+/* --- PAHIT (Ekspresi Mual & Asap Menguap) --- */
+.effect-pahit .emoji-anim { font-size: 2rem; animation: bitterFloat 2s infinite ease-out; opacity: 0;}
+.bitter-1 { top: -10px; left: -25px; animation-delay: 0s;}
+.bitter-2 { top: 10px; right: -25px; font-size: 1.5rem; animation-delay: 0.7s;}
+.bitter-3 { top: -20px; left: 50%; transform: translateX(-50%); animation-delay: 1.2s;}
+
+@keyframes bitterFloat {
+  0% { transform: translateY(5px) scale(0.8); opacity: 0.8; }
+  100% { transform: translateY(-40px) scale(1.5); opacity: 0; }
 }
