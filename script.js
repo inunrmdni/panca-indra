@@ -113,6 +113,59 @@ function setEyeCondition(condition) {
     }
   }
 }
+function tastFood(flavor) {
+  // 1. Reset (sembunyikan) semua efek animasi emoji terlebih dahulu
+  const allEffects = document.querySelectorAll('.effect-group');
+  allEffects.forEach(effect => {
+    effect.classList.remove('active');
+  });
+
+  // 2. Tampilkan efek emoji sesuai tombol rasa yang diklik
+  const activeEffect = document.getElementById('efek-' + flavor);
+  if (activeEffect) {
+    activeEffect.classList.add('active');
+  }
+
+  // 3. Ubah ekspresi wajah utama di sebelah lidah
+  const faceExpression = document.getElementById('face-expression');
+  if (flavor === 'pedas') faceExpression.innerText = '🥵';
+  else if (flavor === 'manis') faceExpression.innerText = '🤤';
+  else if (flavor === 'asin') faceExpression.innerText = '😋';
+  else if (flavor === 'asam') faceExpression.innerText = '😖';
+  else if (flavor === 'pahit') faceExpression.innerText = '🤢';
+
+  // Animasi kecil saat wajah berubah (opsional agar lebih hidup)
+  faceExpression.style.animation = 'none';
+  setTimeout(() => {
+    faceExpression.style.animation = 'faceBounce 0.4s ease-out';
+  }, 10);
+
+  // 4. Logika untuk menyorot bagian lidah (SVG Highlight)
+  // Menyamarkan semua bagian lidah terlebih dahulu
+  const allZones = document.querySelectorAll('.taste-zone');
+  allZones.forEach(zone => {
+    zone.style.opacity = '0.3'; 
+  });
+
+  // Menyorot (membuat terang) bagian lidah yang sesuai dengan rasa
+  // Catatan: Pedas bukan rasa yang dideteksi oleh papila lidah (melainkan sensor sakit/panas), 
+  // jadi kita bisa membiarkan lidah tidak tersorot saat 'pedas' dipilih, atau sesuaikan dengan keinginanmu.
+  if (flavor !== 'pedas') {
+    const activeZones = document.querySelectorAll(`.taste-zone[data-zone="${flavor}"]`);
+    activeZones.forEach(zone => {
+      zone.style.opacity = '0.9'; // Buat menyala/terang
+    });
+  }
+
+  // 5. Highlight tombol makanan yang sedang dipilih
+  const allFoodBtns = document.querySelectorAll('.food-btn');
+  allFoodBtns.forEach(btn => btn.classList.remove('selected'));
+  
+  const activeBtn = document.getElementById('food-' + flavor);
+  if (activeBtn) {
+    activeBtn.classList.add('selected');
+  }
+}
 
 // Kedip otomatis (Mode FPV)
 function startBlinking() {
